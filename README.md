@@ -8,4 +8,4 @@ Jika Kalian Ingin Kenal Lebih Dekat Dengan Saya, kalian bisa kunjungi web pribad
 
 Pekkenalkan, nama saya gilang saya tinggal di jawa barat, saya masih smp kelas 3, dan saya anak ke-3
 
-[http://lang.bloger.id/](url) and ![Image](src)
+[Ini Situs Web Saya](http://lang.bloger.id/) and ![Image](src)
