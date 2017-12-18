@@ -1,6 +1,6 @@
 ## Welcome to IDLang Pages
 
-Saya Membuat page ini hanya untuk eksperiment saja.
+Saya Membuat page ini hanya untuk menyimpan file web saja.
 
 Jika Kalian Ingin Kenal Lebih Dekat Dengan Saya, kalian bisa kunjungi web pribadi milik saya atau bisa melihat bio yang akan saya tulis dibawah ini
 
