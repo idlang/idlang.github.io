@@ -63,3 +63,21 @@ Kode :
 </div>
 
 NB : Ganti 4.6 dengan rating aplikasi tersebut atau bisa terserah anda
+
+< ---- Widget ScreenShot --->
+Untuk menampilkan SCREENSHOT
+1.buka post lama/atau buat post baru.
+2.masukin kode berikut dalam mode html, bukan compase
+Kode : 
+<div class="screenshots">
+<img alt="Judul" src="LinkGambar" title="Judul" />
+<img alt="Judul" src="LinkGambar" title="Judul" />
+<img alt="Judul" src="LinkGambar" title="Judul" />
+<img alt="Judul" src="LinkGambar" title="Judul" />
+<img alt="Judul" src="LinkGambar" title="Judul" />
+<img alt="Judul" src="LinkGambar" title="Judul" />
+<img alt="Judul" src="LinkGambar" title="Judul" />
+</div>
+NB: Ganti Kata "Judul" Dengan Title post ataupun lainnya, Ganti LinkGambar Dengan Link gambar screenshots aplikasi.
+
+~~Sankyuu... Babay
