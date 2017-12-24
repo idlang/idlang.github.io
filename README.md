@@ -1,7 +1,7 @@
 ## Welcome to IDLang Pages
-<center>
   ![Image](https://2.bp.blogspot.com/-8iCFPfUxDYg/Wj_FZmatrOI/AAAAAAAAAY8/R00d_KqVfPUBqlZhHfntNVNEFuA2fAWCACLcBGAs/s320/4274187-jason_voorhees_colored_by_likwidlead-d3bqrat.jpg)
-</center>
+### Description
+
 Saya Membuat page ini hanya untuk menyimpan file web saja.
 
 Jika Kalian Ingin Kenal Lebih Dekat Dengan Saya, kalian bisa kunjungi web pribadi milik saya atau bisa melihat bio yang akan saya tulis dibawah ini, ataauuu lagi kalian bisa nanya di [Ask.fm saya! @IDLang](https://ask.fm/idlang)
