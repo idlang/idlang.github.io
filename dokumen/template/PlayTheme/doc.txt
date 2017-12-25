@@ -80,4 +80,34 @@ Kode :
 </div>
 NB: Ganti Kata "Judul" Dengan Title post ataupun lainnya, Ganti LinkGambar Dengan Link gambar screenshots aplikasi.
 
+< ---- Widget About Product --->
+Untuk menampilkan SCREENSHOT
+1.buka post lama/atau buat post baru.
+2.masukin kode berikut dalam mode html, bukan compase
+Kode : 
+<div class="product-about">
+                                <div class="title">Additional Information on Google Play:</div>
+                                <div class="body">
+                                    <div class="inner">
+                                        <div class="item">
+                                            <strong>Updated</strong>
+                                            <span>12.18.2015</span>
+                                        </div>
+                                        <div class="item">
+                                            <strong>Size</strong>
+                                            <span>36.3Mb</span>
+                                        </div>
+                                        <div class="item">
+                                            <strong>Downloads</strong>
+                                            <span>100 000–500 000</span>
+                                        </div>
+                                        <div class="item">
+                                            <strong>From</strong>
+                                            <span>3+ years</span>
+                                        </div>
+                                    </div>
+                                </div>
+</div>
+</div>
+NB: Ada Beberapa yang harus disesuaikan
 ~~Sankyuu... Babay
