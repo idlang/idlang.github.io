@@ -59,7 +59,7 @@ Untuk menampilkan rating
 2.masukin kode berikut dalam mode html, bukan compase
 Kode : 
 <div id="app-rates">
-<span class="stars">4.6</span></div>
+<span class="stars">4.6</span>
 </div>
 
 NB : Ganti 4.6 dengan rating aplikasi tersebut atau bisa terserah anda
@@ -81,7 +81,7 @@ Kode :
 NB: Ganti Kata "Judul" Dengan Title post ataupun lainnya, Ganti LinkGambar Dengan Link gambar screenshots aplikasi.
 
 < ---- Widget About Product --->
-Untuk menampilkan SCREENSHOT
+Untuk menampilkan About
 1.buka post lama/atau buat post baru.
 2.masukin kode berikut dalam mode html, bukan compase
 Kode : 
