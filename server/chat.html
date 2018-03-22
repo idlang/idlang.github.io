@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Server Chat | Kode Ken</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Russo+One|Raleway|Lobster|Roboto" rel="stylesheet"> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-database.js"></script>
+       <style>
+body , html {
+    margin:0 ;
+    user-select: none;
+    display:block ;
+}
+#wrapper {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    overflow-x: hidden;
+    font-family: "Roboto";
+}
+#page {
+    position:absolute ;
+    display:inline-block ;
+    min-height:100vh ;
+    width:100vw ;
+    background:white ;
+    margin-bottom:80px ;
+    overflow:hidden ;
+    left:0 ;
+    top:0 ;
+    text-align:center ;
+    transition-duration:0.7s ;
+    z-index:100 ;
+}
+.window {
+    height:49vh ;
+    width:100% ;
+    background:#0D1111 ;
+    position:absolute ;
+    left:0px ;
+    top:0px ;
+    overflow:hidden ;
+    z-index:5 ;
+}
+.window div {
+    position: absolute ;
+    top:0% ;
+    height:50vh ;
+    width:100vw ;
+    background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWo6Syb3v7WtDUVQGugtq-gPZX6PB3QKVHBJV3cp3cxYWCMVa_') ;
+    background-size:cover ;
+    background-position:top ;
+    font-size:32px ;
+    color:white ;
+    text-align:center ;
+    text-shadow:5px 5px black , 0px 0px 10px black ;
+    transition-duration:0.1s ;
+}
+.window::after {
+    content:' ' ;
+    position:absolute ;
+    bottom:0px ;
+    left:0px ;
+    height:0px ;
+    width:0px ;
+    border-bottom:11vh solid white ;
+    border-right:100vw solid transparent ;
+    z-index:8 ;
+}
+.content {
+    width:90% ;
+    font-size:20px ;
+    font-family:'Raleway' , serif ;
+    display:inline-block ;
+    text-align:left ;
+    
+    overflow:scroll ;
+}
+quart {
+    display:block ;
+    height:45vh ;
+}
+.logo {
+    font-family:'Lobster' , serif ;
+    position:relative ;
+    display:inline-block ;
+}
+.l1 {
+    position:absolute ;
+    font-size:60px ;
+    left:-100px ;
+    top:-20px ;
+}
+.l2 {
+    position:absolute ;
+    font-size:54px ;
+    left:-34px ;
+    top:5px ;
+}
+.server {
+    height:180px ;
+    width:100% ;
+    background:rgb(210,210,210) ;
+    margin:6px 0px ;
+    background-size:100% ;
+    position:relative ;
+    animation:hide 2s ;
+    box-shadow:0px 0px 14px rgba(50,50,50,0.6) inset ;
+}
+tcl {
+    margin-left:38px ;
+    display:block ;
+}
+.server div {
+    height:22px ;
+    width:100% ;
+    background:rgba(0,0,0,0.4) ;
+    color:white ;
+    position:absolute ;
+    bottom:0 ;
+}
+txt {
+    margin-left:10px ;
+}
+.fa-heart , .fa-heart-o {
+    color:white ;
+    font-size:26px ;
+    position:absolute ;
+    top:0px ;
+    right:6px ;
+    transition-duration:0.2s ;
+    z-index:10 ;
+    padding:10px ;
+}
+.fa-heart {
+    font-size:32px ;
+    right:3px ;
+    top:1px ;
+}
+.out {
+    position:relative ;
+}
+#salon {
+    position:absolute ;
+    top:0 ;
+    right:-100vw ;
+    height:100vh ;
+    width:100vw ;
+    background:white ;
+    transition-duration:0.7s ;
+    background-size:cover ;
+    background-position:top ;
+    text-align:center ;
+}
+.bar {
+    height:60px ;
+    width:100vw ;
+    background:rgb(240,240,240) ;
+    position:fixed ;
+    bottom:0 ;
+    text-align:center ;
+}
+.bar input {
+    height:80% ;
+    width:80% ;
+    background:transparent ;
+    border:none ;
+    margin-top:1% ;
+    font-size:22px  ;
+    font-weight:300 ;
+    outline:none ;
+}
+.msg {
+    position:relative ;
+    display:block ;
+    margin-bottom:18px ;
+    animation:hide 1s ;
+}
+@keyframes hide {
+    0%{visibility:hidden ;}
+    
+}
+.img {
+    height:38px ;
+    width:38px ;
+    border-radius:100% ;
+    background-size:100% ;
+    display:inline-block ;
+}
+.msg span {
+    display:inline-block ;
+    font-size:20px ;
+    position:absolute ;
+    left:44px ;
+}
+.msg span drap {
+    display:inline-block ;
+    height:10px ;
+    width:12px ;
+    font-size:14px ;
+    overflow:hidden ;
+    margin-left:36vw ;
+    line-height:16px ;
+    text-align:center ;
+    opacity:0.4 ;
+    margin-top:8px ;
+}
+.msg span cal {
+    font-size:14px ;
+}
+.mini {
+    font-weight:lighter ;
+    left:40px ;
+    top:24px ;
+    font-size:10px ;
+    color:grey ;
+}
+msg {
+    display:block ;
+    padding-left:46px ;
+    font-size:18px ;
+    margin-top:-20px ;
+}
+.button {
+    height:36px ;
+    width:40% ;
+    font-size:20px ;
+    background:#333 ;
+    text-align:center ;
+    display:inline-block ;
+    padding-top:6px ;
+    cursor:pointer ;
+    min-width:100px ;
+    color:white ;
+}
+#connection , #registration {
+    position:absolute ;
+    min-height:100vh ;
+    width:100vw ;
+    top:0px ;
+    left:-100vw ;
+    z-index:10 ;
+    transition-duration:0.7s ;
+    overflow:hidden ;
+    text-align:center ;
+    font-family:'Raleway' , serif ;
+    font-size:22px ;
+}
+#connection {
+    position:fixed ;
+}
+.lcontent {
+    display:inline-block ;
+    text-align:center ;
+}
+h2 {
+    font-weight:400 ;
+}
+input {
+    border:none ;
+    border-bottom:1px solid grey ;
+    outline:none ;
+    font-family:'Raleway' , sans-serif ;
+    padding:2px 6px ;
+    font-size:18px ;
+    height:18px ;
+    margin-bottom:16px ;
+}
+#registration img {
+    height:54px ;
+    width:54px ;
+    border-radius:100% ;
+    margin:4px ;
+    display:inline-block ;
+}
+#notification {
+    height:4vh ;
+    width:100vw ;
+    position:fixed ;
+    left:0px ;
+    top:-20vh ;
+    z-index:120 ;
+    min-height:24px ;
+    max-height:44px ;
+    text-align:center ;
+    font-size: 20px ;
+    line-height:28px ;
+    transition-duration:0.7s ;
+    color: #FFF ;
+    padding: 5px 0;
+    font-weight:300 ;
+}
+/*
+    #0BCD74      |       #E91E63
+*/
+.lbutton {
+    height:50px ;
+    width:75% ;
+    text-align:center ;
+    background:#333 ;
+    color:white ;
+    font-size:26px ;
+    line-height:50px ;
+    font-weight:300 ;
+    cursor:pointer ;
+    display:inline-block ;
+}
+#cpage {
+    position:fixed ;
+    height:100vh ;
+    width:100vw ;
+    background:white ;
+    left:100vw ;
+    top:0px ;
+    transition-duration:0.7s ;
+    text-align:center ;
+}
+.enter {
+    height:60px ;
+    width:60px ;
+    color:white ;
+    font-size:38px ;
+    text-align:center ;
+    line-height:64px ;
+    cursor:pointer ;
+    background:#222 ;
+    position:absolute ;
+    top:0 ;
+    right:0 ;
+    font-weight:lighter ;
+}
+.enter i {
+    margin-left:2px ;
+}
+.blg {
+    height:26px ;
+    padding:0px 10px ;
+    background:#E91E63 ;
+    color:white ;
+    position:fixed ;
+    top:12px ;
+    left:22px ;
+    border-radius:2px ;
+    line-height:30px ;
+    font-size:20px ;
+    display:none ;
+    z-index:10 ;
+}
+.blg::before {
+    content:' ' ;
+    position:absolute ;
+    left:-12px ;
+    top:0px ;
+    border-top:13px solid transparent ;
+    border-bottom:13px solid transparent ;
+    border-right:13px solid #E91E63 ;
+    border-radius:2px ;
+}
+form { 
+width: 100%;
+max-width: 400px;
+text-align:center;
+border: 2px solid #3D5AFE;
+padding-bottom: 10px;
+margin:auto;
+background: #212121;
+box-shadow: 7px 7px 8px grey;
+}
+input[type="button"], input[type="reset"] {
+background:#3D5AFE;
+color: #ffffff;
+border:none;
+padding: 15px;
+font-size:16px;
+min-width: 21%;
+margin:4px 4px;
+font-style: oblique;
+}
+input[type="textfield"] {
+width: 75%;
+padding: 16px 32px;
+font-size:16px;
+margin: 5px;
+border: 1px solid #C0C0C0;
+border-radius: 1px;
+text-align:left;
+color: #212121;
+background:#EEEEEE;
+}
+</style>
+
+    </head>
+    <body>
+    <div id="wrapper">
+        <div id="page">
+            <div class="content">
+                <div class="window">
+                    <div>
+                        <br />
+                        <br />
+                        <span class="logo">
+                            <span class="l1">Chat</span>
+                            <span class="l2">Servers</span>
+                        </span>
+                    </div>
+                </div>
+                <quart></quart>
+                <br />
+                update :<br />
+                <tcl>
+                 - new style <br />
+                 - simplified system <br />
+                 - account option <br />
+                 - avatar for profile added <br />
+                 - like and number of views systems added on any server 
+                </tcl>
+                <br />
+                <br />
+                
+                <div class="sign">
+                    <div id="goCr" class="button bleft">
+                        sign up
+                    </div>
+                    <div id="goCo" class="button bright">
+                        sign in
+                    </div>
+                </div>
+                <div class="sep"></div>
+                
+                <br />
+                <br />
+                <br />
+                
+                
+                <div class="servers">
+                </div>
+                
+            </div>
+            <br />
+            <br />
+            
+            <div id="golcre" class="lbutton">
+                create a server
+            </div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <center>
+<hr size="1" width="50%">
+DONATE FOR ME OR LIKE FANPAGE ME !
+<hr size="1" width="50%">
+<b><a href="https://www.paypal.me/kodeken"><input type="button" value="Donate" onclick="alert('Thanks For Donate');" style="font-size:1em;"></a></b>
+OR
+<b><a href="https://www.facebook.com/kodeken.blog"><input type="button" value="Like" onclick="alert('Like ME');" style="font-size:1em;"></a></b>
+</center>
+<footer><center>
+<hr size="1" width="50%">
+Design By <a href="http://www.kodeken.tech" style="text-decoration:none">KODE KEN</a> 2018<hr size="1" width="50%"></center></footer>
+        </div>
+        
+        
+        <div id="salon">
+            <div class="return blg">return</div>
+            <div class="content">
+                <div class="window">
+                    <div></div>
+                </div>
+                <br />
+                <br />
+                <div class="discu">
+                    
+                </div>
+            </div>
+            <div class="bar">
+                <input id="mlmessage" maxlenght="180" placeholder="message">
+                <div class="enter">
+                    <i class="fa fa-angle-right"></i>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div id="connection">
+            <div class="lcontent">
+                <h2>sign in</h2>
+                <br />
+                <input placeholder="username" id="username">
+                <br />
+                <input placeholder="password" id="password" type="password">
+                <br />
+                <br />
+                
+                <div class="button return">
+                    return
+                </div>
+                <div class="button connect">
+                    next
+                </div>
+                
+                
+            </div>
+        </div>
+        <div id="registration">
+            <div class="lcontent">
+                <h2>sign up</h2>
+                <br />
+                <input maxlenght="16" placeholder="username" id="newUsername">
+                <br />
+                <input maxlenght="16" placeholder="password" id="newPassword" type="password">
+                <br />
+                <input maxlenght="16" placeholder="valid password" id="confirmNewPassword" type="password">
+                <br />
+                <br />
+                choose your profile picture :
+                <br />
+                <br />
+                
+                <img src="https://s19.postimg.org/nup3ozyub/avatar1.png">
+                <img src="https://s19.postimg.org/w075n57nn/avatar2.png">
+                <img src="https://s19.postimg.org/8lz6b7xg3/avatar3.png">
+                <img src="https://s19.postimg.org/5rw0xrfub/avatar4.png">
+                <img src="https://s19.postimg.org/5f4mrkpur/avatar5.png">
+                <img src="https://s19.postimg.org/owza7i7cz/avatar6.png">
+                <img src="https://s19.postimg.org/r1jn8lgpf/avatar7.png">
+                <img src="https://s19.postimg.org/dxe2vw983/avatar8.png">
+                <img src="https://s19.postimg.org/ads562ysj/avatar9.png">
+                
+                <br />
+                <br />
+                
+                <txtl>
+                    your image :
+                    <tl>
+                        [choose one]
+                    </tl>
+                </txtl>
+                <br />
+                <br />
+                
+                <div class="button return">
+                    return
+                </div>
+                <div class="button creer">
+                    next
+                </div>
+                
+            </div>
+        </div>
+        
+        
+    </div>
+    
+    <div id="notification"></div>
+    <div id="cpage">
+        <div class="lcontent">
+            <h2>create a server</h2>
+            <input maxlenght="16" placeholder="server name" id="serverName">
+            <br />
+            <input id="serverImage" placeholder="image url (.png)">
+            <br />
+            <txt class="mini">please enter a valable image url</txt>
+            <br />
+            <br />
+            <div class="button return">return</div>
+            <div class="button creeServer">next</div>
+            
+        </div>
+    </div>
+    <script>
+var nomDecompte , imageDeCompte ;
+var ndserv ;
+var logged = false ;
+var config = {
+    apiKey: "AIzaSyA60EXezv6hxGBj7LzoKCyUjzbm6Za5xb4",
+    authDomain: "d-s-donnees.firebaseapp.com",
+    databaseURL: "https://d-s-donnees.firebaseio.com",
+    projectId: "d-s-donnees",
+    storageBucket: "d-s-donnees.appspot.com",
+    messagingSenderId: "1061982076774"
+  };
+firebase.initializeApp(config);
+var ref = firebase.database().ref('servers') ;
+$(document).ready(function () {
+    
+    ref = firebase.database().ref('servers') ;
+    
+    ref.on('child_added' , function (data) {
+        var unda = data.val() ;
+        
+        $('.servers').append('<div class="out"><i class="fa fa-heart-o" data-name="' + unda.nom + '"></i><div class="server" style="background-size:cover ;background-image:url\(' + unda.image + '\) ;" data-name="' + unda.nom + '"><div><txt>' + unda.views + ' <i class="fa fa-eye"></i><txt>' + unda.nom + '</txt></txt></div></div></div>') ;
+        
+        $('.server').on('click' , function () {
+            page.style.left = '-100vw' ;
+            salon.style.right = '0px' ;
+            $('#salon .content .window div').css({
+                backgroundImage: $(this).css('backgroundImage')
+            }) ;
+            
+            var server = $(this).data('name') ;
+            
+            load(server) ;
+            
+        
+        $('#salon .content .window').delay(900).animate({
+            opacity:0.1 ,
+            height:0
+        }) ;
+        
+    }) ;
+    $('.fa-heart , .fa-heart-o').click(function () {
+        
+        if ($(this).attr('class') != "fa fa-heart-o" && logged) {
+            $(this).removeClass('fa-heart') ;
+            $(this).addClass('fa-heart-o') ;
+        }
+        else if (logged) {
+            $(this).addClass('fa-heart') ;
+            $(this).removeClass('fa-heart-o') ;
+        }
+        else if (! logged) {
+            notify("please sign in" , "#E91E63") ;
+        }
+        
+        // var server = $(this).data('name') ;
+        
+        
+    }) ;
+        
+    }) ;
+    
+    $('.bleft').click(function () {
+        registration.style.left = "0px" ;
+        page.style.left = "100vw" ;
+        
+    }) ;
+    $('.bright').click(function () {
+        connection.style.left = "0px" ;
+        page.style.left = "100vw" ;
+        
+    }) ;
+    var image ;
+    $('#registration img').click(function () {
+        image = $(this).attr('src') ;
+        
+        $('#registration txtl tl').html('<br /><img style="height:20px ;width:20px ;" src="' + image + '">') ;
+        
+    }) ;
+    $('.return').click(function () {
+        registration.style.left = "-100vw" ;
+        connection.style.left = "-100vw" ;
+        page.style.left = "0px" ;
+        cpage.style.left = "100vw" ;
+        $('.blg').css({
+            display:'none' 
+        }) ;
+        salon.style.right = "-100vw" ;
+        
+    }) ;
+    $('.creer').click(function () {
+        var username = newUsername.value ;
+        var password = newPassword.value ;
+        var cpassword = confirmNewPassword.value ;
+        if (username.length < 5 || password.length < 5 || cpassword != password || ! image) {
+            if (username.length < 5) {
+                notify("your username must be longer than 5 characters" , "#E91E63") ;
+            }
+            if (password.length < 5) {
+                notify("your password must be longer than 5 characters" , "#E91E63") ;
+            }
+            if (password != cpassword) {
+                notify("your 2nd password is diferent than the 1st" , "#E91E63") ;
+            }
+            if (! image) {
+                notify("you must have to select a profil image" , "#E91E63") ;
+            }
+        }
+        else {
+            var newRef = firebase.database().ref('profiles/' + username) ;
+            var n = 0 ;
+            newRef.on('child_added' , function (data) {
+                ++n ;
+            }) ;
+            notify("please wait ... " , "#0BCD74") ;
+            setTimeout(function () {
+                
+                if (n != 0) {
+                    notify("username already used" , "#E91E63") ;
+                }
+                else if (n == 0){
+                    var newRef = firebase.database().ref('profiles').child('' + username) ;
+                    newRef.set({
+                        name:username ,
+                        password:password ,
+                        image:image ,
+                        pays:mpays
+                    }) ;
+                    logged = true ;
+                    nomDecompte = username ;
+                    imageDeCompte = image ;
+                    goCo.style.display = "none" ;
+                    goCr.style.display = "none" ;
+                    registration.style.left = "-100vw" ;
+                    page.style.left = "0px" ;
+                    notify("account created \(connected\)" , "#0BCD74") ;
+                }
+            },1700) ;
+        }
+        
+        
+    }) ;
+    $('.connect').click(function () {
+        var musername = username.value ;
+        var mpassword = password.value ;
+        
+        var list = [] ;
+        var newRef = firebase.database().ref('profiles/' + musername) ;
+        newRef.on('child_added' , function (data) {
+            var unda = data.val() ;
+            list.push(unda) ;
+            
+        }) ;
+        notify("please wait ... " , "#0BCD74") ;
+        
+        setTimeout(function () {
+            if (list == "") {
+                notify("bad username" , "#E91E63") ;
+            }
+            else if (mpassword == list[2]) {
+                notify("connected" , "#0BCD74") ;
+                logged = true ;
+                nomDecompte = list[1] ;
+                imageDeCompte = list[0] ;
+                
+                goCo.style.display = "none" ;
+                goCr.style.display = "none" ;
+                connection.style.left = "-100vw" ;
+                page.style.left = "0px" ;
+            }
+            else if (mpassword != list[2]) {
+                notify("bad password" , "#E91E63") ;
+            }
+            
+        },1700) ;
+        
+        // image / nom / password / pays 
+        
+    }) ;
+    $('.lbutton').click(function () {
+        cpage.style.left = 0 ;
+        page.style.left = "-100vw" ;
+        
+    }) ;
+    $('.creeServer').click(function () {
+        var nomDuServer = serverName.value ;
+        var imageDuServer = serverImage.value ;
+        if (nomDuServer.length < 6 || imageDuServer.length < 20) {
+            if (nomDuServer.length < 6) {
+                notify("server name must be longer than 6 characters" , "#E91E63") ;
+            }
+            if (imageDuServer.length < 20) {
+                notify("enter a valable image url" , "#E91E63") ;
+            }
+        }
+        else {
+            //    CREER LE SERVER 
+            ref = firebase.database().ref('servers/' + nomDuServer) ;
+            var a = 0 ;
+            ref.on('child_added' , function (data) {
+                ++a ;
+            }) ;
+            notify("please wait ... " , "#0BCD74") ;
+            setTimeout(function () {
+                if (a != 0) {
+                    notify("server name already used" , "#E91E63") ;
+                }
+                else if (a == 0) {
+                    var newRef = firebase.database().ref('servers').child('' + nomDuServer) ;
+                    newRef.set({
+                        nom:nomDuServer ,
+                        image:imageDuServer ,
+                        msgs:{
+                            a0:{
+                                msg:' '
+                            }
+                        } ,
+                        views:0
+                    }) ;
+                    notify("server created" , "#0BCD74") ;
+                    cpage.style.left = "100vw" ;
+                    page.style.left = 0 ;
+                    golcre.style.display = "none" ;
+                }
+            },1700) ;
+            
+        }
+        
+    }) ;
+    $('.enter').click(function () {
+        var message = mlmessage.value ;
+        
+        $('.bar input').val('') ;
+        
+        if (logged && message) {
+            envoyer(message) ;
+        }
+        else {
+            
+            notify("please sign in" , "#E91E63") ;
+        }
+        
+    })
+    
+    
+}) ;
+function notify(na , cn) {
+    notification.innerHTML = na ;
+    notification.style.backgroundColor = cn ;
+    notification.style.top = "0px" ;
+    setTimeout(function () {
+        notification.style.top = "-20vh" ;
+    },1600) ;
+}
+function load(server) {
+    var a = 0 ;
+    if (a == 0) {
+        var pts = false ;
+        var alist = [] ;
+        var newRef = firebase.database().ref('servers/' + server) ;
+    newRef.on('child_added' , function (data) {
+            var unda = data.val() ;
+            alist.push(unda) ;
+            
+            if (alist[3] != undefined && pts == false) {
+                pts = alist[3] + 1 ;
+            }
+        }) ;
+    }
+    
+    ++a ;
+    setTimeout(function () {
+        firebase.database().ref('servers/' + server).update({
+            views:pts
+        }) ;
+    },1000) ;
+    
+    $('.blg').css({
+        display:'block'
+    },1000) ;
+    $('.discu').html("<br /><br />") ;
+    newRef = firebase.database().ref('servers/' + server + '/msgs') ;
+    newRef.on('child_added' , function (data) {
+        var unda = data.val() ;
+        $('.discu').append(unda.msg) ;
+        
+    }) ;
+    setTimeout(function () {
+        $('.discu').append('<br /><br />') ;
+    },1700) ;
+    
+    ndserv = server ;
+}
+function envoyer(message) {
+    var newRef = firebase.database().ref('servers/' + ndserv + '/msgs').child('a' + Date.now()) ;
+    
+    var date = new Date() ;
+    date = date.getMonth() + "/" + date.getDate() + "/" + date.getFullYear() ;
+    
+    newRef.set({
+        msg:'<div class="msg"><div class="img" style="background-image:url\(' + imageDeCompte + '\)"></div><span><cal>' + nomDecompte + '</cal><txt class="mini">' + date + '</txt><drap>' + mpays + '</drap></span><msg>' + message + '</msg></div>'
+    }) ;
+    
+    $('.discu').text(' ') ;
+    
+    newRef = firebase.database().ref('servers/' + ndserv + '/msgs') ;
+    newRef.on('child_added' , function (data) {
+        var unda = data.val() ;
+        $('.discu').append(unda.msg) ;
+        
+    }) ;
+    setTimeout(function () {
+        $('.discu').append('<br /><br />') ;
+    },1700) ;
+    
+}
+ 
+ 
+ //        AVOIR LE PAYS 
+var mpays ;
+var ip ;
+var pays = ["A" , "B" , "C" , "D" , "E" , "F" , "G" , "H" , "I" , "J" , "K" , "L" , "M" , "N" , "O" , "P" , "Q" , "R"] ;
+var cpl = ["🇦" , "🇧" , "🇨" , "🇩" , "🇪" , "🇫" , "🇬" , "🇭" , "🇮" , "🇯" , "🇰" , "🇱" , "🇲" , "🇳" , "🇴" , "🇵" , "🇶" , "🇷"] ;
+$(function() {
+    $.getJSON("https://api.ipify.org?format=jsonp&callback=?",
+      function(json) {
+        ip = json.ip ;
+        $.getJSON('https://ipinfo.io/' + ip , function(data){ 
+            var a = 0 ;
+            mpays = "" ;
+            while (a <= (data.country).length - 1) {
+                var lp = pays.indexOf((data.country).substring(a , a + 1)) ;
+                mpays += cpl[lp] ;
+                ++a
+            }}) ;
+            
+      });
+    
+});
+alert("servers who have not available image who are deleted !! ") ;
+alert("IMPORTANT!\n on sololearn there are huge morons who put messages like \" fu** , mother fu**** \", it must surely amuse them ^^\n I'm sorry for this useless and inappropriate content, although I try to delete as much as possible") ;
+</script>
+    </body>
+</html>
