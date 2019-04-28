@@ -1,0 +1,162 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+<link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+<title>Gilang - Thanos Effect</title>
+<style>
+      body {
+  font-size: 16px;
+}
+
+.btn,
+.block {
+  text-align: center;
+  border: 1px solid transparent;
+}
+
+.btn {
+  margin: 8px auto;
+  padding: 6px 12px;
+  background-color: #5bc0de;
+  color: white;
+  display: inline-block;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #1490ac;
+}
+
+.block {
+  width: 440px;
+  height: 200px;
+  border-color: #cfd8dc;
+  border-radius: 8px;
+  box-shadow: none;
+  padding: 12px;
+  line-height: 40px;
+}
+
+.div-hidden {
+  transition: opacity 1.75s ease 0s;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.div-show {
+  transition: opacity 1.5s ease 0s;
+  opacity: 1;
+  visibility: visible;
+}
+
+.block-container {
+  position: relative;
+  margin: 8px 0;
+}
+
+.div-overlay {
+  position: absolute;
+  top: 0;
+  animation-iteration-count: 1;
+  animation-duration: 1.5s;
+  visibility: hidden;
+}
+
+.div-overlay-left {
+  animation-name: slide-left;
+}
+
+.div-overlay-right {
+  animation-name: slide-right;
+}
+
+@keyframes slide-left {
+  from {
+    left: 0;
+    opacity: 1;
+    visibility: visible;
+  }
+  to {
+    left: -30px;
+    opacity: 0;
+  }
+}
+
+@keyframes slide-right {
+  from {
+    left: 0;
+    opacity: 1;
+    visibility: visible;
+  }
+  to {
+    left: 30px;
+    opacity: 0;
+  }
+}
+
+    </style>
+<script>
+  window.console = window.console || function(t) {};
+</script>
+<script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+</head>
+<body translate="no">
+<button type="button" class="btn" onclick="onBtnClick();" id="btn">Snap</button>
+<div class="block-container">
+<div id="block" class="div-show block-main">
+<div class="block">
+A naive implementation on Google's Thanos effect (Mobile version)
+<br>
+No jQuery or other libaray used
+<br>
+Good bye, the cruel world
+<br>
+Hello, the new world
+</div>
+</div>
+<div id="overlay"></div>
+</div>
+<script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-de7e2ef6bfefd24b79a3f68b414b87b8db5b08439cac3f1012092b2290c719cd.js"></script>
+<script id="rendered-js">
+      function classHas(base, has) {
+  const arr = base.split(" ");
+  for (let i = 0; i < arr.length; i++) {if (window.CP.shouldStopExecution(0)) break;
+    if (arr[i] === has)
+    return true;
+  }window.CP.exitedLoop(0);
+}
+
+function classReplace(base, replace, next) {
+  return base.replace(replace, next);
+}
+
+function onBtnClick() {
+  const block = document.getElementById("block");
+  const btn = document.getElementById("btn");
+  const overlay = document.getElementById("overlay");
+
+  if (classHas(block.className, "div-show")) {
+    block.className = classReplace(block.className, "div-show", "div-hidden");
+    btn.innerHTML = "Show";
+    const content = block.innerHTML;
+    overlay.innerHTML = "<div class=\"div-overlay div-overlay-left\">" + content + "</div>" + "<div class=\"div-overlay div-overlay-right\">" + content + "</div>";
+  } else {
+    block.className = classReplace(block.className, "div-hidden", "div-show");
+    btn.innerHTML = "Snap";
+    overlay.innerHTML = null;
+  }
+}
+      //# sourceURL=pen.js
+    </script>
+<script src="https://static.codepen.io/assets/editor/live/css_reload-5619dc0905a68b2e6298901de54f73cefe4e079f65a75406858d92924b4938bf.js"></script>
+</body>
+</html>
