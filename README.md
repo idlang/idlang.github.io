@@ -11,6 +11,6 @@ Jika Kalian Ingin Kenal Lebih Dekat Dengan Saya, kalian bisa kunjungi web pribad
 Pekenalkan, nama saya gilang saya tinggal di jawa barat, saya masih smp kelas 3, dan saya anak ke-3.
 Hobi saya maen game dan ngoding..
 
-[Ini Situs Web Saya](https://www.fyi.my.id/) Dan Jangan Lupa Juga buat liat devianart aku [@IDLang](https://idlang.deviantart.com)
+[Ini Situs Web Saya](https://www.fyi.my.id/) Dan ini [Ini Situs Web ke-2 Saya](https://www.idlang.my.id/) Jangan Lupa Juga buat liat devianart aku [@IDLang](https://idlang.deviantart.com)
 
 [Liat File aku!](https://github.com/idlang/idlang.github.io/)
