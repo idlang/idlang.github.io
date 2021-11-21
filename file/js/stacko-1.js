@@ -224,7 +224,7 @@ function extractfeed(e) {
         g = (s.substring(11, 16), f + " " + r[parseInt(o, 10)] + "," + u);
         "summary" in t[i] ? a = t[i].summary.$t : "content" in t[i] && (a = t[i].content.$t);
         var m = removetag(a, 150);
-        if ("media$thumbnail" in t[i]) h = (h = t[i].media$thumbnail.url).replace("/s210/", "/s1200/");
+        if ("media$thumbnail" in t[i]) h = (h = t[i].media$thumbnail.url).replace("/s210-c/", "/s1200/");
         else var h = "https://1.bp.blogspot.com/-P6sIgHwSrZU/XrncUn1POBI/AAAAAAAABK4/cpGgDNNzCuIDFXn5Uqmey4qh23efe-f_QCLcBGAsYHQ/s210/no-image-compress.jpg";
         for (var c = h, v = 0; v < t[i].link.length; v++) {
 
